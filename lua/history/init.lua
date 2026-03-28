@@ -61,6 +61,10 @@ M.select_file_in_history = function()
   vim.api.nvim_set_current_buf(M.histories[winid].bufs[index].nr)
 end
 
+M.clear_history = function()
+  M.histories = {}
+end
+
 M.toggle_popup = function()
   if POPUP_WINID and vim.api.nvim_win_is_valid(POPUP_WINID) then
     vim.api.nvim_win_close(POPUP_WINID, true)
@@ -116,6 +120,7 @@ M.setup = function(opts)
   vim.keymap.set('n', opts.keybinds.back or '<leader>bb', M.back)
   vim.keymap.set('n', opts.keybinds.forward or '<leader>bf', M.forward)
   vim.keymap.set('n', opts.keybinds.view or '<leader>bv', M.toggle_popup)
+  vim.keymap.set('n', opts.keybinds.clear_history or '<leader>c', M.clear_history)
 end
 
 return M
