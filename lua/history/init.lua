@@ -5,7 +5,8 @@ local M = { histories = {} }
 
 local IGNORES = {
   [''] = true,
-  ['netrw'] = true
+  ['netrw'] = true,
+  ['NvimTree'] = true
 }
 
 local POPUP_WINID = nil
