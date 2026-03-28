@@ -1,5 +1,6 @@
 local Path = require('plenary.path')
 local popup = require('plenary.popup')
+local Utils = require('history.utils')
 
 local M = { histories = {} }
 
@@ -22,9 +23,22 @@ M.push = function()
   if not M.histories[winid] then M.histories[winid] = { index = 0, bufs = {} } end
   local h = M.histories[winid]
   if IGNORES[vim.bo.filetype] then return end
-
+  
+  --h = { index: int, bufs: Array<nr: int, bm: path> }
   local buf = h.bufs[h.index]
   if buf and buf.nr == bufnr then return end
+
+  local compare = function(buf_table, buf_num)
+        if buf_table.nr == buf_num then
+            return true
+        end
+        return false
+  end
+
+  local existing_buffer_index = Utils.has_value(h.bufs, bufnr, compare)
+  if existing_buffer_index then
+    h.index = existing_buffer_index - 1
+  end
 
   if h.index ~= #h.bufs then
     for i = #h.bufs, h.index + 1, -1 do
@@ -63,6 +77,7 @@ end
 
 M.clear_history = function()
   M.histories = {}
+  M.push()
 end
 
 M.toggle_popup = function()

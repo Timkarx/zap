@@ -1,12 +1,18 @@
 local Utils = {}
 
-function Utils.has_value(tab, val)
+function Utils.has_value(tab, val, compare_callback)
     for index, value in ipairs(tab) do
-        if value == val then
-            return true
+        if compare_callback(value, val) then
+            return index
         end
     end
-    return false
+    return nil
+end
+
+function Utils.print_table(table)
+    for key, value in pairs(table) do
+        print(key, "=", value)
+    end
 end
 
 return Utils
