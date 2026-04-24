@@ -1,6 +1,19 @@
 # history.nvim
 
-adds a browser-like buffer history to each window open in neovim.
+Adds a browser-like buffer history to each window open in neovim. 
+
+Examples: 
+
+1.
+History = [A, B]
+New Buffer = C
+New History = [A, B, C]
+
+2.
+History = [A, B, C, D]
+New Buffer = B
+New History = [A, B]
+
 
 ## Install
 
